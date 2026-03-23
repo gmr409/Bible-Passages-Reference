@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Key Biblical Passages — Easter &amp; the Resurrection</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #16130f;
+    --surface: #1f1b15;
+    --surface-hover: #2a2419;
+    --card: #231e17;
+    --border: #3d3528;
+    --border-light: #2e2820;
+    --text-primary: #ede6d6;
+    --text-secondary: #b0a48c;
+    --text-tertiary: #7a6f5c;
+    --accent: #c8a96e;
+    --accent-mid: #a87e44;
+    --accent-dim: #6b4e25;
+    --rule-double: 2px double #5a4e38;
+    --serif: 'EB Garamond', Georgia, serif;
+    --serif2: 'Crimson Pro', Georgia, serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.8;
+    min-height: 100vh;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .page { max-width: 1100px; margin: 0 auto; }
+
+  /* ── Masthead ── */
+  .masthead {
+    text-align: center;
+    padding: 1.5rem 0;
+    border-top: var(--rule-double);
+    border-bottom: var(--rule-double);
+    margin-bottom: 1.75rem;
+  }
+  .masthead h1 {
+    font-family: var(--serif);
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .masthead .subtitle {
+    font-family: var(--serif2);
+    font-size: 15px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── Category nav ── */
+  .cat-nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .cat-btn {
+    font-family: var(--serif2);
+    font-size: 15px;
+    color: var(--text-secondary);
+    background: var(--surface);
+    border: 0.5px solid var(--border-light);
+    border-radius: 4px;
+    padding: 7px 16px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .cat-btn:hover { background: var(--surface-hover); color: var(--text-primary); border-color: var(--border); }
+  .cat-btn.active {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-color: var(--accent-mid);
+  }
+
+  /* ── Two-column layout ── */
+  .main-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* ── Left column: passage list ── */
+  .passage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .passage-item {
+    background: var(--surface);
+    border: 0.5px solid var(--border-light);
+    border-radius: 6px;
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .passage-item:hover { background: var(--surface-hover); border-color: var(--border); }
+  .passage-item.active {
+    background: var(--card);
+    border-color: var(--accent-mid);
+    box-shadow: inset 3px 0 0 var(--accent-mid);
+  }
+  .passage-item .p-ref {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+    line-height: 1.3;
+  }
+  .passage-item.active .p-ref { color: var(--accent); }
+  .passage-item .p-desc {
+    font-family: var(--serif2);
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+  .passage-item .p-cat {
+    font-family: var(--serif2);
+    font-size: 12px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* ── Right column: detail panel ── */
+  .detail-col {
+    position: sticky;
+    top: 2rem;
+  }
+  .detail-empty {
+    background: var(--surface);
+    border: 0.5px solid var(--border-light);
+    border-radius: 8px;
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--text-tertiary);
+    font-family: var(--serif2);
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.7;
+  }
+  .detail-empty .arrow {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.4;
+  }
+  .detail-panel {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 1.75rem 2rem;
+    display: none;
+  }
+  .detail-panel.visible { display: block; }
+  .detail-cat {
+    font-family: var(--serif2);
+    font-size: 12px;
+    color: var(--accent-mid);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .detail-ref {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 16px;
+    line-height: 1.3;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 14px;
+  }
+  .detail-body {
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.95;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+  .detail-note {
+    font-family: var(--serif2);
+    font-size: 15px;
+    color: var(--text-tertiary);
+    border-top: 1px solid var(--border-light);
+    padding-top: 12px;
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .detail-note::before {
+    content: 'Note: ';
+    font-weight: 600;
+    font-style: normal;
+    color: var(--text-secondary);
+  }
+
+  /* ── Legend & Footer ── */
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    border-top: 1px solid var(--border-light);
+    padding-top: 12px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--serif2);
+    font-size: 14px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.04em;
+  }
+  .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .dot-narrative { background: #7a8c6e; }
+  .dot-prophecy  { background: #7a6e8c; }
+  .dot-theology  { background: #6e7e8c; }
+
+  .footer {
+    margin-top: 2.5rem;
+    text-align: center;
+    border-top: var(--rule-double);
+    padding-top: 1rem;
+    font-family: var(--serif2);
+    font-size: 13px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 700px) {
+    .main-layout { grid-template-columns: 1fr; }
+    .detail-col { position: static; }
+    .masthead h1 { font-size: 23px; }
+    .cat-btn { font-size: 13px; padding: 6px 11px; }
+  }
+
+  @media print {
+    body { background: #fff; color: #000; padding: 1rem; }
+    .cat-nav { display: none; }
+    .detail-empty { display: none; }
+    .detail-panel { display: block !important; border: 1px solid #ccc; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Masthead -->
+  <div class="masthead">
+    <h1>Key Biblical Passages — Easter &amp; the Resurrection</h1>
+    <p class="subtitle">A canonical reference guide &nbsp;·&nbsp; Select a category, then choose a passage</p>
+  </div>
+
+  <!-- Category nav -->
+  <nav class="cat-nav" aria-label="Categories">
+    <button class="cat-btn active" onclick="selectCat(this,'all')">All passages</button>
+    <button class="cat-btn" onclick="selectCat(this,'prep')">I. Preparation</button>
+    <button class="cat-btn" onclick="selectCat(this,'passion')">II. The Passion</button>
+    <button class="cat-btn" onclick="selectCat(this,'resurrection')">III. Resurrection</button>
+    <button class="cat-btn" onclick="selectCat(this,'appearances')">IV. Appearances</button>
+    <button class="cat-btn" onclick="selectCat(this,'theology')">V. Theology</button>
+  </nav>
+
+  <!-- Two-column layout -->
+  <div class="main-layout">
+
+    <!-- Left: passage list -->
+    <div class="passage-list" id="passage-list">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Right: detail -->
+    <div class="detail-col">
+      <div class="detail-empty" id="detail-empty">
+        <span class="arrow">&#8592;</span>
+        Select a passage to read<br>the full exegetical note
+      </div>
+      <div class="detail-panel" id="detail-panel">
+        <p class="detail-cat" id="d-cat"></p>
+        <p class="detail-ref" id="d-ref"></p>
+        <p class="detail-body" id="d-body"></p>
+        <p class="detail-note" id="d-note"></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot dot-narrative"></div>Narrative passages</div>
+    <div class="legend-item"><div class="legend-dot dot-prophecy"></div>Prophetic / OT passages</div>
+    <div class="legend-item"><div class="legend-dot dot-theology"></div>Epistolary / theological passages</div>
+  </div>
+
+  <div class="footer">Prepared as a canonical reference guide for academic and seminary use</div>
+
+</div>
+<script>
+const passages = [
+  { id:'matt2617', cat:'prep',         catLabel:'I. Preparation',         ref:'Matthew 26:17–30',            desc:'Institution of the Lord\'s Supper',               body:'Jesus shares the final Passover meal, establishing the Eucharist and interpreting the bread and cup as his body and blood given for the forgiveness of sins. All four accounts of the Last Supper (cf. Luke 22, Mark 14, 1 Cor 11) preserve this institution narrative as the theological lens through which the crucifixion is interpreted.', note:'Parallel accounts: Mark 14:12–26; Luke 22:7–23; 1 Corinthians 11:23–26.' },
+  { id:'luke2239', cat:'prep',         catLabel:'I. Preparation',         ref:'Luke 22:39–46',               desc:'Agony in the Garden of Gethsemane',                body:'Jesus prays in the Garden of Gethsemane in intense anguish, submitting to the Father\'s will: "Not my will, but yours be done." Luke alone records the appearance of an angel strengthening him and the detail that "his sweat was like drops of blood" — a medical phenomenon known as hematidrosis sometimes cited in discussions of the historicity of the Passion.', note:'Parallel accounts: Matthew 26:36–46; Mark 14:32–42.' },
+  { id:'john1916', cat:'passion',      catLabel:'II. The Passion',        ref:'John 19:16–42',               desc:'Crucifixion, death & burial — fullest account',    body:'The fullest Passion narrative, uniquely including: the trilingual titulus, the seamless garment divided by lot (fulfilling Psalm 22), Jesus commending Mary to the Beloved Disciple, the cry "It is finished" (tetelestai), the spear thrust confirming death, and the burial with 75 pounds of spices by Joseph and Nicodemus — details without parallel in the Synoptics.', note:'John\'s Passion account has been extensively compared with Synoptic versions since the form-critical work of Bultmann and Dodd.' },
+  { id:'matt2745', cat:'passion',      catLabel:'II. The Passion',        ref:'Matthew 27:45–54',            desc:'Darkness, the torn veil & the centurion',          body:'At the moment of Jesus\'s death, Matthew records three signs: three hours of cosmic darkness, the tearing of the temple curtain from top to bottom (widely interpreted as the opening of access to God), and an earthquake accompanied by the resurrection of "holy people." The centurion\'s confession — "Surely he was the Son of God" — functions as the Gentile recognition of Jesus\'s identity at the climax of the Passion.', note:'Mark 15:33–39 is a close parallel; Luke 23:44–47 omits the earthquake and resurrected saints.' },
+  { id:'isa53',    cat:'passion',      catLabel:'II. The Passion',        ref:'Isaiah 53 (Servant Song IV)', desc:'The suffering servant — messianic foreshadowing',  body:'The fourth Servant Song of Deutero-Isaiah, read by early Christians as a prophetic template of the Passion. Key correspondences with the Gospels include: a servant despised and rejected (cf. John 1:11), "by his wounds we are healed" (cf. 1 Pet 2:24), led as a lamb to slaughter (cf. John 1:29), bearing the sins of many (cf. Mark 10:45), and burial with the rich (cf. John 19:38–42).', note:'One of the most theologically generative OT texts for New Testament atonement theology (cf. Anselm, Satisfaction theory; Penal Substitution).' },
+  { id:'ps22',     cat:'passion',      catLabel:'II. The Passion',        ref:'Psalm 22 (Davidic Lament)',   desc:'Cry of dereliction & vindication',                 body:'Opens with the words quoted by Jesus from the cross (Matt 27:46; Mark 15:34). Though a lament psalm, it contains imagery applied directly in the Passion narratives: "They pierce my hands and my feet" (v.16), the division of garments by casting lots (v.18), and "They look and stare at me" (v.17). The psalm ends in confident vindication, suggesting an implicit resurrection typology within the Hebrew text.', note:'Recitation of the opening verse may imply the full psalm; cf. Brown, The Death of the Messiah, pp. 1455–1465.' },
+  { id:'john201',  cat:'resurrection', catLabel:'III. Resurrection',      ref:'John 20:1–18',                desc:'Mary Magdalene at the empty tomb',                 body:'Mary Magdalene arrives at the tomb alone before dawn. She alerts Peter and the Beloved Disciple, who race to investigate. The Beloved Disciple "saw and believed" upon observing the burial cloths. After they leave, Mary encounters two angels and then the risen Jesus himself — whom she mistakes for a gardener until he calls her by name. The recognition scene is among the most intimate post-resurrection accounts.', note:'Mary Magdalene is the primary witness to the resurrection in all four Gospel accounts; cf. Bauckham, Jesus and the Eyewitnesses, ch. 9.' },
+  { id:'matt281',  cat:'resurrection', catLabel:'III. Resurrection',      ref:'Matthew 28:1–10',             desc:'Angel announces the resurrection',                 body:'Mary Magdalene and "the other Mary" arrive at dawn. An earthquake occurs as an angel descends, rolls back the stone, and sits upon it. The angel\'s announcement — "He is not here; he has risen, just as he said" — directly cites Jesus\'s earlier predictions. The risen Jesus then appears to the women as they depart, and they worship him, taking hold of his feet.', note:'Matthew\'s account uniquely includes the guard at the tomb (27:62–66) and the subsequent bribery of the guards (28:11–15) — evidently responding to a known counter-narrative.' },
+  { id:'luke241',  cat:'resurrection', catLabel:'III. Resurrection',      ref:'Luke 24:1–12',                desc:'Women at the tomb; Peter\'s investigation',        body:'The women bring spices and find the stone rolled away. Two men in gleaming clothing challenge them: "Why do you look for the living among the dead?" The women report to the Eleven, who dismiss the account as idle talk (leros) — except Peter, who runs to the tomb and finds only the burial cloths, departing in bewilderment.', note:'Luke\'s resurrection section (24:1–53) structures appearances exclusively in and around Jerusalem, in contrast to Matthew and Mark\'s Galilean focus.' },
+  { id:'mark161',  cat:'resurrection', catLabel:'III. Resurrection',      ref:'Mark 16:1–8',                 desc:'The earliest Gospel resurrection account',         body:'The shortest and most debated resurrection account. Three women arrive at sunrise and find the stone rolled away. A young man in white announces the resurrection and commissions them to tell the disciples. The original manuscript ends at v.8 with the women fleeing in trembling and astonishment, saying nothing to anyone — a deliberately open ending many scholars regard as theologically intentional.', note:'The abrupt ending of Mark 16:8 has generated extensive scholarly discussion; cf. Lincoln, "The Promise and the Failure"; Hooker, The Gospel According to Saint Mark, pp. 383–394.' },
+  { id:'luke2413', cat:'appearances',  catLabel:'IV. Appearances',        ref:'Luke 24:13–35',               desc:'Road to Emmaus',                                   body:'Two disciples walking to Emmaus are joined by the risen Jesus, who remains unrecognized. He opens the Scriptures to them ("beginning with Moses and all the Prophets"). At table, he takes bread, blesses and breaks it — and is recognized. He immediately vanishes. The disciples return to Jerusalem, finding the Eleven affirming, "The Lord has risen and has appeared to Simon."', note:'The Emmaus narrative\'s eucharistic overtones (taking, blessing, breaking) are extensively treated in sacramental theology. Cf. Dix, The Shape of the Liturgy, pp. 53–58.' },
+  { id:'john2019', cat:'appearances',  catLabel:'IV. Appearances',        ref:'John 20:19–29',               desc:'Appearances to the disciples; Thomas',             body:'Jesus appears to the gathered disciples on Easter evening, passing through locked doors. He shows his wounds, commissions them, and breathes the Holy Spirit — a Johannine Pentecost. Thomas, absent, refuses to believe without tactile proof. Eight days later, Jesus appears again and invites Thomas to examine his wounds. Thomas\'s response — "My Lord and my God!" — is the highest Christological confession in the Fourth Gospel.', note:'The Thomas episode is a paradigm for post-apostolic faith: "blessed are those who have not seen and yet have believed" (v.29).' },
+  { id:'1cor153',  cat:'theology',     catLabel:'V. Apostolic Theology',  ref:'1 Corinthians 15:3–8',        desc:'The earliest creedal statement on the resurrection', body:'Paul transmits a pre-Pauline creed using technical rabbinic transmission language (parelabon / paredoka). The creed lists resurrection appearances to Cephas, the Twelve, five hundred brethren at once, James, all the apostles, and Paul last of all. Scholars broadly date this formula to within 2–5 years of the crucifixion, making it the earliest written resurrection testimony in the New Testament.', note:'Cf. Hengel, The Atonement, p. 38; N.T. Wright, The Resurrection of the Son of God, pp. 318–322; Licona, The Resurrection of Jesus, pp. 223–233.' },
+  { id:'1cor1512', cat:'theology',     catLabel:'V. Apostolic Theology',  ref:'1 Corinthians 15:12–22',      desc:'Paul\'s argument for bodily resurrection',         body:'Paul constructs a reductio ad absurdum: if there is no resurrection, then Christ has not been raised; if Christ has not been raised, preaching is empty, faith is futile, and believers remain in their sins. The argument culminates in the Adam-Christ typology: "as in Adam all die, so in Christ all will be made alive." Foundational for eschatology, soteriology, and the theology of bodily resurrection.', note:'The Adam-Christ typology is developed further in Romans 5:12–21.' },
+  { id:'rom63',    cat:'theology',     catLabel:'V. Apostolic Theology',  ref:'Romans 6:3–11',               desc:'Death and resurrection as the pattern of Christian life', body:'Paul argues that baptism incorporates the believer into Christ\'s death and resurrection — the old self is "crucified with him," freed from sin\'s dominion, and raised to walk in "newness of life." The resurrection is not merely a future event but a present reality shaping the ethical life of the believer: "Count yourselves dead to sin but alive to God in Christ Jesus" (v.11).', note:'Central to baptismal theology in Lutheran, Reformed, and Catholic traditions; cf. Luther\'s Small Catechism on Holy Baptism.' },
+  { id:'rev118',   cat:'theology',     catLabel:'V. Apostolic Theology',  ref:'Revelation 1:18',             desc:'The risen Christ\'s self-declaration',             body:'The glorified Christ, appearing to John in apocalyptic vision, declares his identity: "I am the First and the Last. I am the Living One; I was dead, and now look, I am alive for ever and ever! And I hold the keys of death and Hades." A doxological summary of the entire resurrection witness of the New Testament, placing Easter within the cosmic framework of divine sovereignty over death itself.', note:'The claim to hold "the keys of death and Hades" echoes the Harrowing of Hell tradition in 1 Peter 3:19–20 and extra-canonical literature.' }
+];
+
+let activeCat = 'all';
+let activeId = null;
+
+function renderList() {
+  const list = document.getElementById('passage-list');
+  const filtered = activeCat === 'all' ? passages : passages.filter(p => p.cat === activeCat);
+  list.innerHTML = '';
+  let lastCat = null;
+  filtered.forEach(p => {
+    if (activeCat === 'all' && p.cat !== lastCat) {
+      const sep = document.createElement('div');
+      sep.style.cssText = 'font-family:var(--serif2);font-size:12px;color:var(--text-tertiary);letter-spacing:0.08em;text-transform:uppercase;padding:8px 4px 4px;margin-top:4px;border-top:0.5px solid var(--border-light);';
+      sep.textContent = p.catLabel;
+      if (lastCat !== null) list.appendChild(sep);
+      else { sep.style.borderTop = 'none'; sep.style.marginTop = '0'; list.appendChild(sep); }
+      lastCat = p.cat;
+    }
+    const el = document.createElement('div');
+    el.className = 'passage-item' + (p.id === activeId ? ' active' : '');
+    el.innerHTML = '<p class="p-ref">' + p.ref + '</p><p class="p-desc">' + p.desc + '</p>';
+    el.onclick = () => selectPassage(p.id);
+    list.appendChild(el);
+  });
+}
+
+function selectCat(btn, cat) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = cat;
+  activeId = null;
+  document.getElementById('detail-empty').style.display = '';
+  document.getElementById('detail-panel').classList.remove('visible');
+  renderList();
+}
+
+function selectPassage(id) {
+  activeId = id;
+  const p = passages.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('detail-empty').style.display = 'none';
+  document.getElementById('d-cat').textContent = p.catLabel;
+  document.getElementById('d-ref').textContent = p.ref;
+  document.getElementById('d-body').textContent = p.body;
+  document.getElementById('d-note').textContent = p.note || '';
+  document.getElementById('detail-panel').classList.add('visible');
+  renderList();
+}
+
+renderList();
+</script>
+</body>
+</html>
